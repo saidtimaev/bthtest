@@ -36,7 +36,10 @@ class ProductController extends Controller
     {
         $validated = $request->validated();
         $product = Product::create($validated);
-        return $product->toResource();
+        return response()->json([
+            'message' => 'Товар успешно создан',
+            'data' => $product
+        ], 201);
     }
 
     /**
@@ -66,6 +69,6 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->delete();
 
-        return response()->json(['message' => 'Product deleted successfully']);
+        return response()->noContent();
     }
 }
